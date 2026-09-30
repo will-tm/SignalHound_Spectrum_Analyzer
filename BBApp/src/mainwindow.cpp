@@ -104,10 +104,12 @@ MainWindow::MainWindow(QWidget *parent)
     SHPushButton *single_sweep = new SHPushButton(tr("    Single"), toolBar);
     single_sweep->setObjectName("SH_SCButton");
     single_sweep->setIcon(QIcon(":/icons/icon_single"));
+    single_sweep->setProperty("iconName", "icon_single");
     single_sweep->setFixedSize(100, TOOLBAR_H - 4);
     toolBar->addWidget(single_sweep);
     SHPushButton *continuous_sweep = new SHPushButton(tr("     Auto"), toolBar);
     continuous_sweep->setIcon(QIcon(":/icons/icon_continuous"));
+    continuous_sweep->setProperty("iconName", "icon_continuous");
     continuous_sweep->setObjectName("SH_SCButton");
     continuous_sweep->setFixedSize(100, TOOLBAR_H - 4);
     toolBar->addWidget(continuous_sweep);
@@ -206,6 +208,7 @@ void MainWindow::InitMenuBar()
     view_color_menu->addAction(tr("Load Default Colors"), this, SLOT(loadDefaultColors()));
     view_color_menu->addAction(tr("Load Printer Friendly Colors"),
                                this, SLOT(loadPrinterFriendlyColors()));
+    view_color_menu->addAction(tr("Load One Dark Colors"), this, SLOT(loadOneDarkColors()));
     view_color_menu->addAction(tr("Save as Default"), this, SLOT(saveAsDefaultColorScheme()));
     edit_menu->addSeparator();
 
@@ -213,6 +216,7 @@ void MainWindow::InitMenuBar()
     style_menu->addAction(tr("Light"), this, SLOT(loadStyleLight()));
     style_menu->addAction(tr("Dark"), this, SLOT(loadStyleDark()));
     style_menu->addAction(tr("Blue"), this, SLOT(loadStyleBlue()));
+    style_menu->addAction(tr("One Dark"), this, SLOT(loadStyleOneDark()));
 
     edit_menu->addSeparator();
     edit_menu->addAction(tr("Preferences"), this, SLOT(showPreferencesDialog()));
@@ -808,6 +812,12 @@ void MainWindow::loadDefaultColors()
 void MainWindow::loadPrinterFriendlyColors()
 {
     session->colors.LoadPrinterFriendly();
+}
+
+void MainWindow::loadOneDarkColors()
+{
+    session->colors.LoadOneDark();
+    session->trace_manager->LoadOneDarkColors();
 }
 
 void MainWindow::saveAsDefaultColorScheme()

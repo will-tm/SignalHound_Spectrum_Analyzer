@@ -234,12 +234,14 @@ PlaybackToolBar::PlaybackToolBar(const Preferences *preferences,
 
     record_btn = new QPushButton(QIcon(":/playback/record.png"), "", this);
     record_btn->setObjectName("BBFlatButton");
+    record_btn->setProperty("iconName", "record");
     record_btn->setFixedSize(32, 32);
     connect(record_btn, SIGNAL(clicked()), this, SLOT(recordPressed()));
     addWidget(record_btn);
 
     stop_record_btn = new QPushButton(QIcon(":/playback/stop.png"), "", this);
     stop_record_btn->setObjectName("BBFlatButton");
+    stop_record_btn->setProperty("iconName", "stop");
     stop_record_btn->setFixedSize(32, 32);
     connect(stop_record_btn, SIGNAL(clicked()), this, SLOT(stopRecordPressed()));
     addWidget(stop_record_btn);
@@ -248,36 +250,42 @@ PlaybackToolBar::PlaybackToolBar(const Preferences *preferences,
 
     play_btn = new QPushButton(QIcon(":/playback/play.png"), "", this);
     play_btn->setObjectName("BBFlatButton");
+    play_btn->setProperty("iconName", "play");
     play_btn->setFixedSize(32, 32);
     connect(play_btn, SIGNAL(clicked()), this, SLOT(playPressed()));
     addWidget(play_btn);
 
     stop_play_btn = new QPushButton(QIcon(":/playback/stop.png"), "", this);
     stop_play_btn->setObjectName("BBFlatButton");
+    stop_play_btn->setProperty("iconName", "stop");
     stop_play_btn->setFixedSize(32, 32);
     connect(stop_play_btn, SIGNAL(clicked()), this, SLOT(stopPlayingPressed()));
     addWidget(stop_play_btn);
 
     pause_btn = new QPushButton(QIcon(":/playback/pause.png"), "", this);
     pause_btn->setObjectName("BBFlatButton");
+    pause_btn->setProperty("iconName", "pause");
     pause_btn->setFixedSize(32, 32);
     connect(pause_btn, SIGNAL(clicked()), this, SLOT(pausePressed()));
     addWidget(pause_btn);
 
     rewind_btn = new QPushButton(QIcon(":/playback/rewind.png"), "", this);
     rewind_btn->setObjectName("BBFlatButton");
+    rewind_btn->setProperty("iconName", "rewind");
     rewind_btn->setFixedSize(32, 32);
     connect(rewind_btn, SIGNAL(clicked()), this, SLOT(rewindPressed()));
     addWidget(rewind_btn);
 
     step_back_btn = new QPushButton(QIcon(":/playback/skip_previous.png"), "", this);
     step_back_btn->setObjectName("BBFlatButton");
+    step_back_btn->setProperty("iconName", "skip_previous");
     step_back_btn->setFixedSize(32, 32);
     connect(step_back_btn, SIGNAL(clicked()), this, SLOT(stepBackPressed()));
     addWidget(step_back_btn);
 
     step_fwd_btn = new QPushButton(QIcon(":/playback/skip_next.png"), "", this);
     step_fwd_btn->setObjectName("BBFlatButton");
+    step_fwd_btn->setProperty("iconName", "skip_next");
     step_fwd_btn->setFixedSize(32, 32);
     connect(step_fwd_btn, SIGNAL(clicked()), this, SLOT(stepForwardPressed()));
     addWidget(step_fwd_btn);

@@ -49,6 +49,23 @@ void TraceManager::LoadColors()
     }
 }
 
+void TraceManager::LoadOneDarkColors()
+{
+    static const QColor one_dark[TRACE_COUNT] = {
+        QColor(0x61, 0xaf, 0xef), // blue
+        QColor(0xe5, 0xc0, 0x7b), // yellow
+        QColor(0xe0, 0x6c, 0x75), // red
+        QColor(0x56, 0xb6, 0xc2), // cyan
+        QColor(0xc6, 0x78, 0xdd), // purple
+        QColor(0x98, 0xc3, 0x79)  // green
+    };
+
+    for(int i = 0; i < TRACE_COUNT; i++) {
+        traces[i].SetColor(one_dark[i]);
+    }
+    emit updated();
+}
+
 void TraceManager::SaveColors()
 {
     QSettings s(QSettings::IniFormat, QSettings::UserScope,

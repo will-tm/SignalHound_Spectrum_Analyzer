@@ -1,0 +1,621 @@
+/*
+ * One Dark, colors from VS Code "Egoist One" + user customizations
+ *   bg        #141519   input   #1d1f23   header  #21252b
+ *   select    #2c313a   focus   #303642   border  #343942 / #3b4048
+ *   button    #404754   text    #abb2bf   bright  #d7dae0
+ *   muted     #9da5b4   dim     #5c6370   accent  #61afef / #4d78cc
+ *   green     #98c379
+ */
+
+/********
+ * Label
+ ********/
+
+QLabel#SH_Label {
+  font-family: arial-black;
+  font-size: 12px;
+  color: #abb2bf;
+}
+
+QLabel#SH_Label:disabled {
+  color: #5c6370;
+}
+
+/********
+ * Tool Bar
+ ********/
+
+QToolTip {
+  background: #21252b;
+  color: #d7dae0;
+  border: 1px solid #3b4048;
+  font-size: 14px;
+}
+
+QToolBar {
+  background: #21252b;
+  border: 0px;
+  border-bottom: 1px solid #141519;
+  padding-left: 0px;
+  padding-top: 0px;
+}
+
+QToolBar:separator {
+  margin: 2px;
+  background: #3b4048;
+  width: 1px;
+}
+
+/********
+ * Icon Button
+ ********/
+
+QPushButton#BBFlatButton {
+  border-radius: 0px;
+  margin: 1px;
+}
+
+QPushButton:hover#BBFlatButton {
+  background: #2c313a;
+  border: 1px;
+  margin: 1px;
+}
+
+QPushButton:hover:pressed#BBFlatButton {
+  background: #3e4451;
+  border: 1px;
+  margin: 1px;
+}
+
+/********
+ * Ordinary / Single-Continuous Push Buttons
+ ********/
+
+QPushButton#SH_PushButton, QPushButton#SH_SCButton {
+  background: #2c313a;
+  border: 1px solid #3b4048;
+  border-radius: 3px;
+  margin: 1px;
+  color: #d7dae0;
+  font-family: arial-black;
+  font-size: 12px;
+  font-weight: normal;
+  padding-left: 5px;
+}
+
+QPushButton#SH_PushButton {
+  text-align: center;
+}
+
+QPushButton#SH_SCButton {
+  text-align: left;
+}
+
+QPushButton#SH_PushButton:hover:!pressed, QPushButton#SH_SCButton:hover:!pressed {
+  background: #404754;
+}
+
+QPushButton:pressed#SH_PushButton, QPushButton:pressed#SH_SCButton,
+QPushButton:checked#SH_PushButton {
+  background: #3e4451;
+  border: 1px solid #61afef;
+}
+
+QPushButton#SH_PushButton:disabled {
+  color: #5c6370;
+  background: #1d1f23;
+}
+
+/********
+ * Preset Button
+ ********/
+
+QPushButton#BBPresetButton {
+  background: #1d1f23;
+  border: 1px solid #98c379;
+  border-radius: 3px;
+  margin: 1px;
+  color: #98c379;
+  font-family: arial-black;
+  font-size: 12px;
+  text-align: center;
+  font-weight: normal;
+  padding-left: 5px;
+}
+
+QPushButton:hover#BBPresetButton {
+  background: #2c313a;
+}
+
+QPushButton:pressed#BBPresetButton {
+  background: #98c379;
+  color: #141519;
+}
+
+/********
+ * Backgrounds for Pages, DockWidgets, Scroll areas, Dialogs
+ ********/
+
+QWidget#SH_Page, QWidget#SH_Panel, QWidget#SH_ScrollViewport {
+  background-color: #141519;
+  border: 0px;
+}
+
+QScrollArea {
+  background-color: #141519;
+  border: 0px;
+}
+
+QScrollArea#SH_PrefScroll {
+  border: 1px solid #343942;
+}
+
+QDialog#SHDialog {
+  background-color: #141519;
+}
+
+QDockWidget {
+  color: #9da5b4;
+}
+
+QDockWidget::title {
+  background-color: #141519;
+  padding-left: 5px;
+  padding-top: 3px;
+  border-bottom: 1px solid #343942;
+}
+
+/********
+ * Check Box
+ ********/
+
+QCheckBox#SH_CheckBox {
+  color: #abb2bf;
+  font-family: arial-black;
+  font-size: 12px;
+  padding-left: 10px;
+  margin: 1px;
+}
+
+QCheckBox#SH_CheckBox:disabled {
+  color: #5c6370;
+}
+
+QCheckBox#SH_CheckBox::indicator {
+  width: 12px;
+  height: 12px;
+  border: 1px solid #3b4048;
+  background-color: #1d1f23;
+  border-radius: 2px;
+  margin-right: 5px;
+}
+
+QCheckBox#SH_CheckBox::indicator:hover {
+  border: 1px solid #61afef;
+}
+
+QCheckBox#SH_CheckBox::indicator:checked {
+  image: url(:icons/check_select.png);
+}
+
+QCheckBox#SH_CheckBox::indicator:disabled {
+  background-color: #21252b;
+  border: 1px solid #2c313a;
+}
+
+/********
+ * Radio Button
+ ********/
+
+QRadioButton#SHPrefRadioButton {
+  color: #abb2bf;
+  font-family: arial-black;
+  font-size: 12px;
+  padding-left: 10px;
+  margin: 1px;
+}
+
+QRadioButton#SHPrefRadioButton::indicator {
+  width: 12px;
+  height: 12px;
+  border: 1px solid #3b4048;
+  background-color: #1d1f23;
+  border-radius: 2px;
+  margin-right: 5px;
+}
+
+QRadioButton#SHPrefRadioButton::indicator:hover {
+  border: 1px solid #61afef;
+}
+
+QRadioButton#SHPrefRadioButton::indicator:checked {
+  image: url(:icons/check_select.png);
+}
+
+QRadioButton#SHPrefRadioButton:disabled {
+  color: #5c6370;
+}
+
+QRadioButton#SHPrefRadioButton::indicator:disabled {
+  background-color: #21252b;
+}
+
+/********
+ * Combo box
+ ********/
+
+QComboBox {
+  background: #1d1f23;
+  border: 1px solid #343942;
+  border-radius: 3px;
+  margin: 1px;
+  color: #abb2bf;
+  font-family: arial-black;
+  font-size: 12px;
+  font-weight: normal;
+  padding-left: 5px;
+}
+
+QComboBox:hover {
+  border: 1px solid #4d78cc;
+}
+
+QComboBox:disabled {
+  color: #5c6370;
+}
+
+QComboBox::drop-down {
+  border: 0px;
+  margin: 2px;
+}
+
+QComboBox::down-arrow#SH_ComboBox {
+  padding-top: 2px;
+  image: url(:icons/down-arrow-light.png);
+}
+
+QComboBox QAbstractItemView {
+  background-color: #1d1f23;
+  border: 1px solid #343942;
+  color: #abb2bf;
+  outline: none;
+  selection-background-color: #2c313a;
+  selection-color: #d7dae0;
+}
+
+/********
+ * Collapsible Page Buttons, icon and tab text
+ ********/
+
+QCheckBox#SH_PageTab {
+  background: #21252b;
+  color: #d7dae0;
+  border: 0px;
+  border-top: 1px solid #343942;
+  text-align: left;
+  padding: 0px 0px 0px 5px;
+  margin-left: 0px;
+}
+
+QCheckBox:hover#SH_PageTab {
+  background: #292d35;
+}
+
+QCheckBox#SH_PageTab::indicator {
+  width: 20px;
+  height: 20px;
+  border: 0px solid;
+  background-color: transparent;
+  image: url(:icons/collapse-right.png);
+}
+
+QCheckBox#SH_PageTab::indicator:checked {
+  image: url(:icons/collapse-down.png);
+}
+
+/********
+ * Scroll bars
+ ********/
+
+QScrollBar:vertical {
+  border: 0px;
+  background: #141519;
+  margin: 0px;
+  width: 12px;
+}
+
+QScrollBar::handle:vertical {
+  border: 0px;
+  border-radius: 4px;
+  background: #3e4656;
+  margin: 2px;
+  min-height: 20px;
+}
+
+QScrollBar::handle:vertical:hover {
+  background: #4a5365;
+}
+
+QScrollBar:horizontal {
+  border: 0px;
+  background: #141519;
+  height: 12px;
+}
+
+QScrollBar::handle:horizontal {
+  border: 0px;
+  border-radius: 4px;
+  background: #3e4656;
+  margin: 2px;
+  min-width: 20px;
+}
+
+QScrollBar::handle:horizontal:hover {
+  background: #4a5365;
+}
+
+QScrollBar::add-line, QScrollBar::sub-line {
+  border: 0px;
+  background: none;
+  width: 0px;
+  height: 0px;
+}
+
+QScrollBar::add-page, QScrollBar::sub-page {
+  background: none;
+}
+
+/********
+ * MainWindow/DockWidgets Separator
+ ********/
+
+QMainWindow::separator {
+  background: #343942;
+  width: 1px;
+  height: 1px;
+}
+
+QMainWindow::separator:hover {
+  background: #61afef;
+}
+
+/********
+ * Group Box for Preferences Dialog
+ ********/
+
+QGroupBox#SH_PrefGroupBox {
+  border: 1px solid #343942;
+  margin: 5px;
+}
+
+QGroupBox#SH_PrefGroupBox::title {
+  color: #d7dae0;
+}
+
+/********
+ * Color Button
+ ********/
+
+QPushButton#SH_ColorButton {
+  border: 1px solid #3b4048;
+  border-radius: 3px;
+  margin: 2px;
+}
+
+/********
+ * Line Edit / LineEntry class
+ ********/
+
+QLineEdit#SH_LineEntry {
+  border: 1px solid #343942;
+  border-radius: 3px;
+  font-family: arial-black;
+  font-size: 12px;
+  color: #d7dae0;
+  background: #1d1f23;
+  selection-background-color: #3e4451;
+  margin: 1px;
+}
+
+QLineEdit#SH_LineEntry:hover {
+  border: 1px solid #4d78cc;
+}
+
+QLineEdit#SH_LineEntry:focus {
+  border: 1px solid #61afef;
+}
+
+QLineEdit#SH_LineEntry:disabled {
+  color: #5c6370;
+}
+
+/********
+ * Numeric Entry Button
+ ********/
+
+QPushButton#NumberButton {
+  background: #2c313a;
+  border: 1px solid #3b4048;
+  border-radius: 3px;
+  margin: 1px;
+  color: #d7dae0;
+  font-family: arial-black;
+  font-size: 14px;
+  text-align: center;
+  padding-left: 5px;
+}
+
+QPushButton:pressed#NumberButton {
+  background: #3e4451;
+}
+
+/********
+ * Increment/Decrement buttons
+ ********/
+
+QPushButton#Increment, QPushButton#Decrement {
+  background-color: #1d1f23;
+  border: 1px solid #343942;
+  border-radius: 3px;
+  padding: 1px;
+  margin: 1px;
+}
+
+QPushButton#Increment {
+  qproperty-icon: url(:icons/up-arrow-light.png);
+}
+
+QPushButton#Decrement {
+  qproperty-icon: url(:icons/down-arrow-light.png);
+}
+
+QPushButton#Increment:hover:!pressed, QPushButton#Decrement:hover:!pressed {
+  background-color: #2c313a;
+}
+
+QPushButton:pressed#Increment, QPushButton:pressed#Decrement {
+  background-color: #3e4451;
+}
+
+/********
+ * StatusBar
+ ********/
+
+QStatusBar {
+  background-color: #141519;
+  border-top: 1px solid #343942;
+}
+
+QStatusBar::item {
+  border: 0px;
+}
+
+QStatusBar QLabel#SH_Label {
+  font-family: arial-black;
+  font-size: 12px;
+  color: #9da5b4;
+}
+
+/********
+ * Menus
+ ********/
+
+QMenu {
+  background-color: #1d1f23;
+  font-size: 12px;
+  font-family: arial-black;
+  color: #abb2bf;
+  border: 1px solid #343942;
+}
+
+QMenu::item:selected {
+  background-color: #2c313a;
+  color: #d7dae0;
+}
+
+QMenu::item:disabled {
+  background-color: #1d1f23;
+  color: #5c6370;
+}
+
+QMenuBar {
+  background-color: #141519;
+  font-size: 12px;
+  font-family: arial-black;
+  color: #9da5b4;
+  border-bottom: 1px solid #343942;
+}
+
+QMenuBar::item {
+  background-color: #141519;
+  color: #9da5b4;
+  padding: 2px 8px 2px 8px;
+}
+
+QMenuBar::item:selected, QMenuBar::item:pressed {
+  background-color: #2c313a;
+  color: #d7dae0;
+}
+
+/********
+ * TabWidget / TabBar
+ ********/
+
+QTabWidget::pane {
+  border: 0px;
+  background: #141519;
+}
+
+QTabWidget::tab-bar {
+  right: 20px;
+  border: 0px;
+  background: #141519;
+}
+
+QTabBar {
+  border: 0px;
+  background: #141519;
+}
+
+QTabBar::tab {
+  background: #21252b;
+  border: 1px solid #141519;
+  min-width: 6px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: #9da5b4;
+}
+
+QTabBar::tab:selected {
+  background: #141519;
+  color: #d7dae0;
+  border-left: 2px solid #61afef;
+}
+
+QTabBar::tab:hover {
+  background: #292d35;
+}
+
+/********
+ * QSlider
+ ********/
+
+QSlider {
+  margin: 2px;
+  border: 0px;
+}
+
+QSlider::groove:horizontal {
+  background: #2c313a;
+  border: 0px;
+  height: 4px;
+  border-radius: 2px;
+}
+
+QSlider::sub-page:horizontal {
+  background: #4d78cc;
+  border-radius: 2px;
+}
+
+QSlider::handle:horizontal {
+  width: 10px;
+  margin-top: -6px;
+  margin-bottom: -6px;
+  background: #abb2bf;
+  border: 1px solid #141519;
+  border-radius: 3px;
+}
+
+/********
+ * Light icons for dark background (buttons tagged with iconName property)
+ ********/
+
+QPushButton[iconName="record"] { qproperty-icon: url(:/one_dark/record.png); }
+QPushButton[iconName="stop"] { qproperty-icon: url(:/one_dark/stop.png); }
+QPushButton[iconName="play"] { qproperty-icon: url(:/one_dark/play.png); }
+QPushButton[iconName="pause"] { qproperty-icon: url(:/one_dark/pause.png); }
+QPushButton[iconName="rewind"] { qproperty-icon: url(:/one_dark/rewind.png); }
+QPushButton[iconName="skip_previous"] { qproperty-icon: url(:/one_dark/skip_previous.png); }
+QPushButton[iconName="skip_next"] { qproperty-icon: url(:/one_dark/skip_next.png); }
+QPushButton[iconName="icon_single"] { qproperty-icon: url(:/one_dark/icon_single.png); }
+QPushButton[iconName="icon_continuous"] { qproperty-icon: url(:/one_dark/icon_continuous.png); }

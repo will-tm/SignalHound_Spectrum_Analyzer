@@ -83,6 +83,9 @@ public:
         case LIGHT_STYLE_SHEET:
             styleSheet.setFileName(":/style_sheet_light.css");
             break;
+        case ONE_DARK_STYLE_SHEET:
+            styleSheet.setFileName(":/style_sheet_one_dark.css");
+            break;
         case BLUE_STYLE_SHEET:
         default:
             styleSheet.setFileName(":/style_sheet_blue.css");

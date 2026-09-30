@@ -25,6 +25,16 @@
         <file>icons/plus-light.png</file>
         <file>icons/up-arrow-light.png</file>
         <file>style_sheet_blue.css</file>
+        <file>style_sheet_one_dark.css</file>
+        <file>one_dark/record.png</file>
+        <file>one_dark/stop.png</file>
+        <file>one_dark/play.png</file>
+        <file>one_dark/pause.png</file>
+        <file>one_dark/rewind.png</file>
+        <file>one_dark/skip_previous.png</file>
+        <file>one_dark/skip_next.png</file>
+        <file>one_dark/icon_single.png</file>
+        <file>one_dark/icon_continuous.png</file>
         <file>icons/icon_continuous.png</file>
         <file>icons/icon_single.png</file>
     </qresource>

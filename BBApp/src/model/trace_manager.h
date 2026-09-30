@@ -39,6 +39,7 @@ public:
 
     // Trace Manager saves trace colors to .ini file on open/close
     void LoadColors();
+    void LoadOneDarkColors();
     void SaveColors();
 
     // Clear traces on new configuration

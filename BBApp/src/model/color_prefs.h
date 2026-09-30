@@ -38,6 +38,17 @@ public:
         limitLines = QColor(255, 0, 0);
     }
 
+    // One Dark (VS Code) palette
+    void LoadOneDark() {
+        background = QColor(0x14, 0x15, 0x19);
+        text = QColor(0xab, 0xb2, 0xbf);
+        graticule = QColor(0x49, 0x51, 0x62);
+        markerBorder = QColor(0x61, 0xaf, 0xef);
+        markerBackground = QColor(0x28, 0x2c, 0x34);
+        markerText = QColor(0xd7, 0xda, 0xe0);
+        limitLines = QColor(0xe0, 0x6c, 0x75);
+    }
+
     // Load from file on startup, the default values should match LoadDefaults()
     void Load() {
         QSettings s(QSettings::IniFormat, QSettings::UserScope,
