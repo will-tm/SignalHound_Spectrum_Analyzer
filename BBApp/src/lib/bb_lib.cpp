@@ -804,7 +804,7 @@ QString bb_lib::get_my_documents_path()
 char* bb_lib::get_gl_shader_source(const char *file_name)
 {
     FILE *f = NULL;
-    fopen_s(&f, file_name, "rb");
+    f = fopen(file_name, "rb");
     if(f == NULL) {
         return 0; // Unable to open file
     }

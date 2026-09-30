@@ -80,6 +80,7 @@ private:
     bool tgIsConnected;
     // Once external reference is chosen, unable to return to internal
     bool externalReference;
+    std::vector<float> rtAlphaScratch;
 
 private:
     DISALLOW_COPY_AND_ASSIGN(DeviceSA)

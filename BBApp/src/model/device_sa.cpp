@@ -1,6 +1,6 @@
 #include "device_sa.h"
 #include "mainwindow.h"
-#include "sa_api.h"
+#include "lib/sa_api.h"
 
 #include <QElapsedTimer>
 
@@ -265,17 +265,14 @@ bool DeviceSA::GetRealTimeFrame(Trace &t, RealTimeFrame &frame)
     Q_ASSERT(frame.rgbFrame.size() == frame.alphaFrame.size() * 4);
 
     // TODO check return value, emit error if not good
-    saStatus status = saGetRealTimeFrame(id, t.Max(), &frame.alphaFrame[0]);
+    // API 3.x returns the intensity frame in colorFrame, alphaFrame here is unused
+    rtAlphaScratch.resize(frame.alphaFrame.size());
+    saStatus status = saGetRealTimeFrame(id, t.Min(), t.Max(),
+                                         &frame.alphaFrame[0], &rtAlphaScratch[0]);
 
     if(status == saUSBCommErr) {
         emit connectionIssues();
         return false;
-    }
-
-    // Real-time only returns a max or avg trace
-    // Copy max into min for real-time
-    for(int i = 0; i < t.Length(); i++) {
-        t.Min()[i] = t.Max()[i];
     }
 
     // Convert the alpha/intensity frame to a 4 channel image

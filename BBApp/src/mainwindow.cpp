@@ -520,12 +520,7 @@ void MainWindow::OpenDevice(QMap<QString, QVariant> devInfoMap)
     SHProgressDialog pd(openLabel, this);
     pd.show();
 
-    Device *device;
-    if(devInfoMap["Series"].toInt() == saSeries) {
-        device = new DeviceSA(&session->prefs);
-    } else {
-        device = new DeviceBB60A(&session->prefs);
-    }
+    Device *device = new DeviceSA(&session->prefs);
 
     // Replace the old device with the new one
     Device *tempDevice = session->device;
@@ -1075,12 +1070,9 @@ const QString gui_version = "Software Version "
 
 void MainWindow::showAboutBox()
 {
-    QString bb_api_string = tr("BB API Version ") + tr(bbGetAPIVersion());
     QString sa_api_string = tr("SA API Version ") + tr(saGetAPIVersion());
     QMessageBox::about(this, tr("About"),
                        about_string
                        + gui_version
-                       + bb_api_string
-                       + "\n"
                        + sa_api_string);
 }

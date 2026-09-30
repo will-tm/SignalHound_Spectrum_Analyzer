@@ -20,13 +20,6 @@ QList<DeviceConnectionInfo> Device::GetDeviceList() const
         deviceList.push_back(info);
     }
 
-    info.series = bbSeries;
-    bbGetSerialNumberList(serialNumbers, &deviceCount);
-    for(int i = 0; i < deviceCount; i++) {
-        info.serialNumber = serialNumbers[i];
-        deviceList.push_back(info);
-    }
-
     return deviceList;
 }
 

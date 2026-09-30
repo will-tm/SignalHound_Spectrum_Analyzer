@@ -1,5 +1,7 @@
 #include "frequency.h"
 
+#include <cmath>
+
 struct StringToHertz {
     QString string;
     Frequency::Hertz hertz;

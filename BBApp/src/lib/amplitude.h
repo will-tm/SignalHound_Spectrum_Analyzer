@@ -4,6 +4,7 @@
 #include "macros.h"
 
 #include <QString>
+#include <cmath>
 #include <QSettings>
 
 #define UNIT_COUNT 4

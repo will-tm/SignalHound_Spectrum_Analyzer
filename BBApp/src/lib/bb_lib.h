@@ -9,11 +9,14 @@
 #include <condition_variable>
 #include <atomic>
 #include <memory>
+#include <chrono>
+#include <cstdlib>
 
 #include <malloc.h>
 
 #include <QDateTime>
 #include <QWaitCondition>
+#include <QMutex>
 #include <QDebug>
 #include <QOpenGLFunctions>
 #include <QColor>
@@ -117,6 +120,11 @@ private:
     int compiled;
 };
 
+inline void Sleep(unsigned long ms)
+{
+    std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+}
+
 class SleepEvent {
 public:
     SleepEvent() { mut.lock(); }
@@ -130,22 +138,6 @@ private:
     QWaitCondition wait_con;
 };
 
-#if defined(_WIN32) || defined(_WIN64)
-#include <windows.h>
-
-    // Windows Event semaphore, At one point I tested this
-    //   to be more efficient than a condition variable approach
-    class semaphore {
-        HANDLE handle;
-    public:
-        semaphore() { handle = CreateEventA(nullptr, false, false, nullptr); }
-        ~semaphore() { CloseHandle(handle); }
-
-        void wait() { WaitForSingleObject(handle, INFINITE); }
-        void notify() { SetEvent(handle); }
-    };
-
-#else // Linux
 
     // Semaphore using C++ stdlib
     class semaphore {
@@ -174,7 +166,6 @@ private:
         }
     };
 
-#endif // Semaphore
 
 GLuint get_texture_from_file(const QString &file_name);
 
@@ -229,18 +220,22 @@ inline void sphereToCart(float theta, float phi, float rho,
 
 inline float* simdMalloc_32f(int len)
 {
-    return (float*)_aligned_malloc(len * sizeof(float), 32);
+    void *p = nullptr;
+    posix_memalign(&p, 32, len * sizeof(float));
+    return (float*)p;
 }
 
 inline complex_f* simdMalloc_32fc(int len)
 {
-    return (complex_f*)_aligned_malloc(len * sizeof(complex_f), 32);
+    void *p = nullptr;
+    posix_memalign(&p, 32, len * sizeof(complex_f));
+    return (complex_f*)p;
 }
 
 inline void simdFree(void *ptr)
 {
     if(!ptr) return;
-    _aligned_free(ptr);
+    free(ptr);
 }
 
 inline void simdCopy_32f(const float *src, float *dst, int len)

@@ -14,11 +14,11 @@ class PageTab : public QCheckBox {
     Q_OBJECT
 
 public:
-    PageTab::PageTab(const QString &label, QWidget *parent = 0) :
+    PageTab(const QString &label, QWidget *parent = 0) :
         QCheckBox(label, parent) {
         setObjectName("SH_PageTab");
     }
-    PageTab::~PageTab() {}
+    ~PageTab() {}
 
     virtual bool hitButton(const QPoint &) const { return true; }
 };

@@ -4,24 +4,7 @@
 #include <QShortcut>
 #include <QKeyEvent>
 
-#include <windows.h>
-#pragma comment(lib,"Winmm.lib")
-
-// Audio related
-#define BLOCK_SIZE  8192
-#define BLOCK_COUNT 20
-
-// WaveOut function prototypes
-static void CALLBACK waveOutProc(HWAVEOUT, UINT, DWORD_PTR, DWORD_PTR, DWORD_PTR);
-static WAVEHDR* allocateBlocks(int size, int count);
-static void freeBlocks(WAVEHDR* blockArray);
-static void writeAudio(HWAVEOUT hWaveOut, LPSTR data, int size);
-
-// WaveOut variables
-static CRITICAL_SECTION waveCriticalSection;
-static WAVEHDR* waveBlocks;
-volatile int waveFreeBlockCount;
-static int waveCurrentBlock;
+#include <pulse/simple.h>
 
 AudioDialog::AudioDialog(Device *device_ptr,
                          AudioSettings *settings_ptr) :
@@ -167,37 +150,14 @@ void AudioDialog::Reconfigure()
 
 void AudioDialog::AudioThread()
 {
-    // Initialize waveOut
-    HWAVEOUT hWaveOut; // device handle
-    WAVEFORMATEX wfx;
+    pa_sample_spec spec;
+    spec.format = PA_SAMPLE_S16LE;
+    spec.rate = device_traits::audio_rate(); // 32000;
+    spec.channels = 1;
 
-    waveBlocks = allocateBlocks(BLOCK_SIZE, BLOCK_COUNT);
-    waveFreeBlockCount = BLOCK_COUNT;
-    waveCurrentBlock = 0;
-    InitializeCriticalSection(&waveCriticalSection);
-
-    // set up the WAVEFORMATEX structure.
-    wfx.nSamplesPerSec = device_traits::audio_rate(); // 32000;
-    wfx.wBitsPerSample = 16;         // sample size
-    wfx.nChannels = 1;               // channels
-    wfx.cbSize = 0;                  // size of _extra_ info
-    wfx.wFormatTag = WAVE_FORMAT_PCM;
-    wfx.nBlockAlign = (wfx.wBitsPerSample*wfx.nChannels) >> 3;
-    wfx.nAvgBytesPerSec = wfx.nBlockAlign*wfx.nSamplesPerSec;
-
-    // Try to open the default wave device. WAVE_MAPPER is
-    //   a constant defined in mmsystem.h, it always points to the
-    //   default wave device on the system (some people have 2 or
-    //   more sound cards).
-    if( waveOutOpen(
-        &hWaveOut,
-        WAVE_MAPPER,
-        &wfx,
-        (DWORD_PTR)waveOutProc,
-        (DWORD_PTR)&waveFreeBlockCount,
-        CALLBACK_FUNCTION) != MMSYSERR_NOERROR)
-    {
-        //BB60Error("Error opening sound card");
+    pa_simple *stream = pa_simple_new(nullptr, "Spike", PA_STREAM_PLAYBACK, nullptr,
+                                      "Audio Player", &spec, nullptr, nullptr, nullptr);
+    if(!stream) {
         return;
     }
 
@@ -217,9 +177,10 @@ void AudioDialog::AudioThread()
             buffer[i] = from_device[i] * 16000.0;
         }
 
-        writeAudio(hWaveOut, (char*)buffer, 8192);
+        pa_simple_write(stream, buffer, 8192, nullptr);
     }
 
+    pa_simple_free(stream);
     return;
 }
 
@@ -254,89 +215,3 @@ void AudioDialog::largeDecPressed()
     reset_timer.stop();
     reset_timer.start();
 }
-
-//
-// Callback we only handle this when data is done
-//
-void CALLBACK waveOutProc(HWAVEOUT hwo,
-                          UINT uMsg,
-                          DWORD_PTR dwInstance,
-                          DWORD_PTR dwParam1,
-                          DWORD_PTR dwParam2)
-{
-    // pointer to free block counter
-    DWORD_PTR* freeBlockCounter = (DWORD_PTR*)dwInstance;
-
-    // Only handle certain callbacks
-    if(uMsg != WOM_DONE)
-        return;
-
-    // We now have one more free block
-    EnterCriticalSection(&waveCriticalSection);
-    (*freeBlockCounter)++;
-    LeaveCriticalSection(&waveCriticalSection);
-}
-
-//
-// Fill one block
-//
-void writeAudio(HWAVEOUT hWaveOut, LPSTR data, int size)
-{
-    WAVEHDR* current;
-    current = &waveBlocks[waveCurrentBlock];
-
-    // Unprepare before prepare
-    if(current->dwFlags & WHDR_PREPARED)
-        waveOutUnprepareHeader(hWaveOut, current, sizeof(WAVEHDR));
-
-    memcpy(current->lpData, data, size); // Copy data
-    waveOutPrepareHeader(hWaveOut, current, sizeof(WAVEHDR)); // Prepare
-    waveOutWrite(hWaveOut, current, sizeof(WAVEHDR)); // Write
-
-    EnterCriticalSection(&waveCriticalSection);
-    waveFreeBlockCount--;
-    LeaveCriticalSection(&waveCriticalSection);
-
-    //while(!waveFreeBlockCount) {
-        //cout << "Sleeping\n";
-    //    Sleep(10);
-    //}
-
-    waveCurrentBlock++;
-    waveCurrentBlock %= BLOCK_COUNT;
-    current = &waveBlocks[waveCurrentBlock];
-}
-
-//
-// One time block allocation
-//
-WAVEHDR* allocateBlocks(int size, int count)
-{
-    char *buffer;
-    int i;
-    WAVEHDR* blocks;
-    DWORD totalBufferSize = (size + sizeof(WAVEHDR)) * count;
-
-    // allocate memory for the entire set in one go
-    buffer = (char*)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, totalBufferSize);
-
-    // and set up the pointers to each bit
-    blocks = (WAVEHDR*)buffer;
-    buffer += sizeof(WAVEHDR) * count;
-
-    for(i = 0; i < count; i++)
-    {
-        blocks[i].dwBufferLength = size;
-        blocks[i].lpData = buffer;
-        blocks[i].dwFlags = 0;
-        buffer += size;
-    }
-    return blocks;
-}
-
-void freeBlocks(WAVEHDR* blockArray)
-{
-    HeapFree(GetProcessHeap(), 0, blockArray);
-}
-
-

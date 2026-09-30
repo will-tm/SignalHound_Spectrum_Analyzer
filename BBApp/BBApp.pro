@@ -26,7 +26,6 @@ SOURCES += src/main.cpp \
     src/views/trace_view.cpp \
     src/model/trace.cpp \
     src/model/marker.cpp \
-    src/model/device_bb60a.cpp \
     src/model/trace_manager.cpp \
     src/widgets/measure_panel.cpp \
     src/model/persistence.cpp \
@@ -77,8 +76,6 @@ HEADERS += src/mainwindow.h \
     src/model/trace.h \
     src/model/marker.h \
     src/model/device.h \
-    src/model/sa_api.h \
-    src/model/device_bb60a.h \
     src/lib/bb_api.h \
     src/model/trace_manager.h \
     src/widgets/measure_panel.h \
@@ -123,16 +120,11 @@ HEADERS += src/mainwindow.h \
 OTHER_FILES += \
     style_sheet.css \
     todo.txt \
-    bb_app.rc \
     spike.ico
 
-LIBS += \
-    -Ldebug -lbb_api \
-    -Ldebug -lsa_api
+LIBS += -L/usr/local/lib -lsa_api -lpulse-simple -lpulse
 
 INCLUDEPATH += src external_libraries
-
-RC_FILE = bb_app.rc
 
 RESOURCES = ./resources/bb_app.qrc
 
